@@ -1,4 +1,6 @@
-package com.example.pants
+package com.example.pants.domain.usecase
+
+import com.example.pants.domain.model.ColorModel
 
 class CheckBoardOrderUseCase {
 

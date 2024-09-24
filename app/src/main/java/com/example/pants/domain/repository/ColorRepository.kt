@@ -1,4 +1,6 @@
-package com.example.pants
+package com.example.pants.domain.repository
+
+import com.example.pants.domain.model.ColorModel
 
 interface ColorRepository {
 

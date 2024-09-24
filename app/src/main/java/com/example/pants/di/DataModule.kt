@@ -1,4 +1,4 @@
-package com.example.pants
+package com.example.pants.di
 
 import org.koin.dsl.module
 

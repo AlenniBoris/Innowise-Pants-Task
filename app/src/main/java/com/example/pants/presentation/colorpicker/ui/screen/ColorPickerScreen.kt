@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.pants.ColorModel
+import com.example.pants.domain.model.ColorModel
 import com.example.pants.R
 import com.example.pants.presentation.SharedGameViewModel
 import com.example.pants.presentation.colorpicker.ui.picker.PickerContent

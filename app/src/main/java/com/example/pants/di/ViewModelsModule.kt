@@ -1,4 +1,4 @@
-package com.example.pants
+package com.example.pants.di
 
 import com.example.pants.presentation.SharedGameViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf

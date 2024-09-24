@@ -1,4 +1,7 @@
-package com.example.pants
+package com.example.pants.domain.usecase
+
+import com.example.pants.domain.model.ColorModel
+import com.example.pants.domain.repository.ColorRepository
 
 class GetColorBoardUseCase(
     private val colorRepository: ColorRepository,

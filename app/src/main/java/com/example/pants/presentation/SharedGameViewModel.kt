@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pants.CheckBoardOrderUseCase
-import com.example.pants.ColorModel
-import com.example.pants.GetColorBoardUseCase
+import com.example.pants.domain.usecase.CheckBoardOrderUseCase
+import com.example.pants.domain.model.ColorModel
+import com.example.pants.domain.usecase.GetColorBoardUseCase
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.ColorUtils
-import com.example.pants.ColorModel
+import com.example.pants.domain.model.ColorModel
 
 @Composable
 internal fun ColorBoardPreview(

@@ -10,9 +10,9 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pants.ColorModel
+import com.example.pants.domain.model.ColorModel
 import com.example.pants.databinding.ItemColorBinding
-import com.example.pants.swap
+import com.example.pants.utils.extension.swap
 
 class ColorListAdapter(
     private val onItemClicked: (ColorModel) -> Unit,

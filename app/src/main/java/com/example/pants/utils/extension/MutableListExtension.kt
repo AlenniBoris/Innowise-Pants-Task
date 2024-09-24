@@ -1,4 +1,4 @@
-package com.example.pants
+package com.example.pants.utils.extension
 
 fun <T> MutableList<T>.swap(index1: Int, index2: Int) {
     val temp = this[index1]

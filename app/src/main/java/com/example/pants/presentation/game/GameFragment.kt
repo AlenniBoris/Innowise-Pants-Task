@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.pants.presentation.game.adapter.ColorListAdapter
 import com.example.pants.R
-import com.example.pants.collectFlow
+import com.example.pants.utils.extension.collectFlow
 import com.example.pants.databinding.FragmentGameBinding
 import com.example.pants.presentation.SharedGameViewModel
 import com.example.pants.presentation.colorpicker.ColorPickerFragment
-import com.example.pants.showErrorDialog
-import com.example.pants.showToast
+import com.example.pants.utils.extension.showErrorDialog
+import com.example.pants.utils.extension.showToast
 import com.example.pants.uikit.androidview.setColoredText
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 

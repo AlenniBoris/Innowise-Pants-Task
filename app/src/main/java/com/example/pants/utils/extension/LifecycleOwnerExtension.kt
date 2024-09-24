@@ -1,4 +1,4 @@
-package com.example.pants
+package com.example.pants.utils.extension
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner

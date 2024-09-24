@@ -1,5 +1,7 @@
 package com.example.pants
 
+import com.example.pants.domain.model.ColorModel
+import com.example.pants.domain.repository.ColorRepository
 import java.util.Locale
 
 class ColorRepositoryImpl(

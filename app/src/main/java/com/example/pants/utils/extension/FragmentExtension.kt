@@ -1,8 +1,8 @@
-package com.example.pants
+package com.example.pants.utils.extension
 
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.pants.DialogTags.ERROR_DIALOG_TAG
+import com.example.pants.utils.extension.DialogTags.ERROR_DIALOG_TAG
 import com.example.pants.uikit.androidview.ErrorDialogFragment
 
 fun Fragment.showToast(message: String) {
