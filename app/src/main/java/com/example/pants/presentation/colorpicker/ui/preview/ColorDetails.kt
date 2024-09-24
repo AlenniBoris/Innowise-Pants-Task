@@ -3,7 +3,9 @@ package com.example.pants.presentation.colorpicker.ui.preview
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,25 +22,23 @@ import com.example.pants.uikit.hue
 
 @Composable
 internal fun ColorDetails(modifier: Modifier, color: Color) {
-    Row(
+    Column(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalArrangement = Arrangement.SpaceBetween,
     ) {
         DataPointPresenter("HUE", stringResource(R.string.hue_data, color.hue))
+        Spacer(modifier = Modifier.height(10.dp))
         DataPointPresenter("RGB", String.format(stringResource(R.string.rgb_data), color.red, color.green, color.blue))
     }
 }
 
 @Composable
 internal fun DataPointPresenter(title: String, data: String) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Row(horizontalArrangement = Arrangement.SpaceEvenly) {
         Text(
-            text = title
-        )
-        Text(
-            text = data,
+            text = "$title: $data",
             style = TextStyle(
                 color = Color.Black,
                 fontSize = 16.sp,
