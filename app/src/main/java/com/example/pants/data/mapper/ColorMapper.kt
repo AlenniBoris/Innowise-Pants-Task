@@ -1,5 +1,6 @@
-package com.example.pants
+package com.example.pants.data.mapper
 
+import com.example.pants.data.source.remote.model.ColorResponse
 import com.example.pants.domain.model.ColorModel
 
 fun ColorResponse.toColorModel(): ColorModel {

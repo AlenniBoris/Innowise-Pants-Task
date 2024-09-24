@@ -1,6 +1,6 @@
 package com.example.pants.di
 
-import com.example.pants.ColorApiService
+import com.example.pants.data.source.remote.ColorApiService
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

@@ -1,4 +1,4 @@
-package com.example.pants
+package com.example.pants.data.source.local
 
 import kotlin.random.Random
 

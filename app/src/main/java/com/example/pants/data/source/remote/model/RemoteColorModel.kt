@@ -1,4 +1,4 @@
-package com.example.pants
+package com.example.pants.data.source.remote.model
 
 data class ColorResponse(
     val name: Name,
