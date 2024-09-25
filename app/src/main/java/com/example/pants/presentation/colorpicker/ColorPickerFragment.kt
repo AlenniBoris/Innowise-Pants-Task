@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import com.example.pants.presentation.colorpicker.ui.screen.ColorPickerScreen
 import com.example.pants.databinding.FragmentPickerBinding
 import com.example.pants.presentation.game.GameFragment.Companion.COLOR_NAME_ARG
 import com.example.pants.presentation.SharedGameViewModel
+import com.example.pants.presentation.colorpicker.model.ColorPickerStateHolder
 import com.example.pants.uikit.compose.theme.PantsAppTheme
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
@@ -39,7 +41,9 @@ class ColorPickerFragment : Fragment() {
         colorName?.let { name ->
             viewModel.setColorModelByName(name)
         }
+
         bindCompose()
+
     }
 
     private fun bindCompose() {
@@ -48,9 +52,18 @@ class ColorPickerFragment : Fragment() {
             setContent {
                 PantsAppTheme {
                     Box(modifier = Modifier.fillMaxSize()) {
-                        ColorPickerScreen(viewModel) {
-                            parentFragmentManager.popBackStack()
-                        }
+                        val stateHolder = remember(viewModel) { ColorPickerStateHolder(viewModel) }
+
+                        ColorPickerScreen(
+                            stateHolder = stateHolder,
+                            onSave = {
+                                viewModel.saveColor()
+                                parentFragmentManager.popBackStack()
+                            },
+                            onUpdateColorSettings = { hue ->
+                                viewModel.updateColorSettings(hue)
+                            },
+                        )
                     }
                 }
             }

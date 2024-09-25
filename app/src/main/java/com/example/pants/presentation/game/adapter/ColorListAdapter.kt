@@ -35,7 +35,9 @@ class ColorListAdapter(
         originalList = currentList
     }
 
-    fun resetToOriginalOrder() = submitList(originalList)
+    fun resetToOriginalOrder(){
+        submitList(originalList)
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setHelpMode(isHelpMode: Boolean) {

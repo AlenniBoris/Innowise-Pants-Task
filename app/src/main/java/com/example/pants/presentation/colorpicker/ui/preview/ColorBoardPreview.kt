@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -17,27 +19,19 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.ColorUtils
 import com.example.pants.domain.model.ColorModel
+import com.example.pants.presentation.colorpicker.model.ColorPickerStateHolder
 
 @Composable
 internal fun ColorBoardPreview(
     modifier: Modifier = Modifier,
-    colors: List<ColorModel>,
+    stateHolder: ColorPickerStateHolder,
 ) {
-    Box(
-        modifier = modifier.padding(vertical = 8.dp)
-    ) {
-        colors.forEach {
-            DisplayColorFromBoard(colors)
-        }
-    }
-}
-
-@Composable
-private fun DisplayColorFromBoard(colors: List<ColorModel>) {
     Column(
-        modifier = Modifier.fillMaxHeight(),
+        modifier = modifier.padding(vertical = 8.dp).fillMaxHeight(),
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
+        val colors by stateHolder.collectColorBoardAsState()
+
         colors.forEach { color ->
             BorderedBox(color)
         }

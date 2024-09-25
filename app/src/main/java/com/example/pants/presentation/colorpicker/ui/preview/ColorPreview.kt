@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -21,19 +22,23 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.pants.presentation.SharedGameViewModel
+import com.example.pants.presentation.colorpicker.model.ColorPickerStateHolder
+import com.example.pants.uikit.compose.animatedGradientTransition
 
 @Composable
 internal fun ColorPreview(
     modifier: Modifier = Modifier,
-    color: Color,
-    animatedColor: Color,
-    animatedGradient: Brush,
+    stateHolder: ColorPickerStateHolder,
 ) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        val selectedColor by stateHolder.collectSelectedColorAsState()
+        val (animatedColor, animatedGradient) = animatedGradientTransition(selectedColor)
         ColorDetails(Modifier.weight(1f), animatedColor)
         ColorBox(animatedGradient)
     }
@@ -60,8 +65,6 @@ private fun ColorBox(animatedGradient: Brush) {
 @Composable
 fun ColorPreviewPreview(){
     ColorPreview(
-        color = Color.Yellow,
-        animatedColor = Color.Yellow,
-        animatedGradient = Brush.linearGradient(0f to Color.Yellow,  0.5f to Color.Green,  1f to Color.Blue),
+        stateHolder = ColorPickerStateHolder(viewModel = viewModel<SharedGameViewModel>()),
     )
 }
