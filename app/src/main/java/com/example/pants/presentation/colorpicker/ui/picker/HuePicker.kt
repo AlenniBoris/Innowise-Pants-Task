@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Color.HSVToColor
 import android.graphics.Paint
 import android.graphics.RectF
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -80,9 +81,18 @@ fun HuePicker(
 
                     val hue = selectedColor.value.hue
 
-                    val x = (PICKER_WIDTH - widthState.intValue)*(hue/ 100f)
+                    val calc = ((hue / 360f) * PICKER_WIDTH)
+                    Log.d("OFFSET---->", calc.toString())
 
-                    IntOffset(x = x.roundToInt(), y = 0)
+                    val x = if (calc <= 5) {
+                        0.dp
+                    } else if (calc >= 355){
+                        360.dp
+                    } else {
+                        (calc-widthState.intValue/5).dp
+                    }
+
+                    IntOffset(x = x.toPx().toInt(), y = 0)
                 }
 //                .offset(x = (cursorWidth.dp))
 //                .onSizeChanged { cursorWidth = it.width }
