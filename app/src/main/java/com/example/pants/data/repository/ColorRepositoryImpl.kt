@@ -1,5 +1,6 @@
 package com.example.pants.data.repository
 
+import android.util.Log
 import com.example.pants.data.source.remote.ColorApiService
 import com.example.pants.data.mapper.toColorModel
 import com.example.pants.domain.model.ColorModel
@@ -11,18 +12,28 @@ class ColorRepositoryImpl(
     private val apiService: ColorApiService,
 ) : ColorRepository {
 
-    override suspend fun getRandomColors(count: Int): Result<Set<ColorModel>> = runCatching {
-        val colorList = mutableListOf<ColorModel>()
+    override suspend fun getSetOfUniqueColorsFromApiService(count: Int): Result<Set<ColorModel>> = runCatching {
+        val colorList = mutableSetOf<ColorModel>()
+        while(colorList.size < count) {
+            val randomHSVColorValue = generateRandomColor()
+            val randomColorValues = randomHSVColorValue.split(",")
+            val randomColorSaturation = randomColorValues[1].toDouble()
+            val randomColorBrightness = randomColorValues[2].toDouble()
 
-        while (colorList.size < count) {
-            val color = apiService.getColor(generateRandomColor()).toColorModel()
-            val doesntContainCommon = color.name.lowercase(Locale.getDefault()) !in COMMON_USE_NAMES
-            val isDistinct = color !in colorList
-            if (doesntContainCommon && isDistinct) {
-                colorList.add(color)
-            }
+            val checkIfColorIsAcceptableByBrightnessAndSaturation =
+                (randomColorSaturation > 0.3) && (randomColorBrightness > 0.4)
+            if (!checkIfColorIsAcceptableByBrightnessAndSaturation) continue
+
+            val colorFromApiByRandomHSV = apiService.getColor(randomHSVColorValue).toColorModel()
+
+            val colorIsInCommonColors =
+                COMMON_USE_NAMES.contains(colorFromApiByRandomHSV.name.lowercase(Locale.getDefault()))
+
+            if (colorIsInCommonColors) continue
+
+            colorList.add(colorFromApiByRandomHSV)
         }
-        colorList.toSet()
+        colorList
     }
 
     private companion object {
