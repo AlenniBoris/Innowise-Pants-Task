@@ -6,24 +6,23 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.pants.domain.model.ColorModel
+import com.example.pants.presentation.colorpicker.model.ColorPickerStateHolder
 import com.example.pants.presentation.colorpicker.ui.preview.Previews
 import com.example.pants.uikit.compose.animatedGradientTransition
 import com.example.pants.uikit.hue
 
 @Composable
 internal fun PickerContent(
-    selectedColor: Color,
+    stateHolder: ColorPickerStateHolder,
     onHueChange: (Float) -> Unit,
-    colors: List<ColorModel>,
 ) {
-    val (animatedColor, animatedGradient) = animatedGradientTransition(selectedColor)
-
     Column(
         modifier = Modifier.width(IntrinsicSize.Min),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -31,12 +30,10 @@ internal fun PickerContent(
     ) {
         Previews(
             modifier = Modifier.fillMaxWidth(),
-            colors = colors,
-            selectedColor = selectedColor,
-            animatedColor = animatedColor,
-            animatedGradient = animatedGradient,
+            stateHolder = stateHolder,
         )
-        HuePicker(hue = selectedColor.hue, animatedColor = animatedColor, onHueChange = onHueChange)
+
+        HuePicker(stateHolder = stateHolder, onHueChange = onHueChange)
     }
 }
 
@@ -51,9 +48,9 @@ fun PickerContentPreview() {
         guessHue = null,
     )
 
-    PickerContent(
-        selectedColor = Color.Yellow,
-        onHueChange = { _ -> },
-        colors = List(5) { model }
-    )
+//    PickerContent(
+//        selectedColor = Color.Yellow,
+//        onHueChange = { _ -> },
+//        colors = List(5) { model }
+//    )
 }

@@ -27,22 +27,27 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toRect
 import com.example.pants.R
+import com.example.pants.presentation.colorpicker.model.ColorPickerStateHolder
 import com.example.pants.uikit.hue
+import kotlin.math.roundToInt
 
 private const val PICKER_WIDTH = 300
 
 @Composable
 fun HuePicker(
     modifier: Modifier = Modifier,
-    hue: Float,
-    animatedColor: Color,
+    stateHolder: ColorPickerStateHolder,
+//    hue: Float,
+//    animatedColor: Color,
     onHueChange: (Float) -> Unit,
 ) {
-    onHueChange(hue)
-    val colorHue = animatedColor.hue
+//    onHueChange(hue)
+//    val colorHue = animatedColor.hue
+
     Box(
         modifier = modifier
             .height(40.dp)
@@ -61,18 +66,33 @@ fun HuePicker(
         ) {
             drawHueBitmap()
         }
-        var cursorWidth by remember { mutableIntStateOf(0) }
+
+        val selectedColor = stateHolder.collectSelectedColorAsState()
+
+        val widthState = remember { mutableIntStateOf(0) }
         Image(
             painter = painterResource(id = R.drawable.rectangle_cursor),
             contentDescription = null,
             modifier = Modifier
                 .height(40.dp)
-                .onSizeChanged { cursorWidth = it.width }
-                .then(
-                    with(LocalDensity.current) {
-                        Modifier.offset(x = ((hue / 360f) * (PICKER_WIDTH - cursorWidth.toDp().value)).dp)
-                    }
-                )
+                .onSizeChanged { widthState.intValue = it.width }
+                .offset {
+
+                    val hue = selectedColor.value.hue
+
+                    val x = (PICKER_WIDTH - widthState.intValue)*(hue/ 100f)
+
+                    IntOffset(x = x.roundToInt(), y = 0)
+                }
+//                .offset(x = (cursorWidth.dp))
+//                .onSizeChanged { cursorWidth = it.width }
+//                .then(
+//                    with(LocalDensity.current) {
+//                        Modifier.offset(x = ((cursorWidth.toDp().value)).dp)
+//                        Modifier.offset(x = ((hue / 360f) * (PICKER_WIDTH - cursorWidth.toDp().value)).dp)
+//                        Modifier.offset(x = (cursorWidth.toDp().value).dp)
+//                    }
+//                )
         )
     }
 }

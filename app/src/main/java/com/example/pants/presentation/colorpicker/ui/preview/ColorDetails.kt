@@ -28,6 +28,7 @@ internal fun ColorDetails(modifier: Modifier, color: Color) {
             .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
+
         DataPointPresenter("HUE", stringResource(R.string.hue_data, color.hue))
         Spacer(modifier = Modifier.height(10.dp))
         DataPointPresenter("RGB", String.format(stringResource(R.string.rgb_data), color.red, color.green, color.blue))

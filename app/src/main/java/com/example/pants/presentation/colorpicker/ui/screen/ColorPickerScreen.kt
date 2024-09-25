@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,34 +24,29 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.pants.domain.model.ColorModel
 import com.example.pants.R
 import com.example.pants.presentation.SharedGameViewModel
+import com.example.pants.presentation.colorpicker.model.ColorPickerStateHolder
 import com.example.pants.presentation.colorpicker.ui.picker.PickerContent
 import com.example.pants.uikit.hue
 
 
 @Composable
-fun ColorPickerScreen(viewModel: SharedGameViewModel, onSave: () -> Unit) {
-    val selectedColor by viewModel.selectedColor.collectAsStateWithLifecycle()
-    val currentColorName by viewModel.currentColorName.collectAsStateWithLifecycle()
-    val colorBoard by viewModel.colorBoard.collectAsStateWithLifecycle()
+fun ColorPickerScreen(
+    stateHolder: ColorPickerStateHolder,
+    onSave: () -> Unit,
+    onUpdateColorSettings: (Float) -> Unit,
+) {
     ColorPicker(
-        selectedColor = selectedColor,
-        colorName = currentColorName,
-        onSaveColor = {
-            viewModel.saveColor(selectedColor.hue)
-            onSave()
-        },
-        onUpdateColorSettings = viewModel::updateColorSettings,
-        colors = colorBoard,
+        stateHolder = stateHolder,
+        onSaveColor = onSave,
+        onUpdateColorSettings = onUpdateColorSettings,
     )
 }
 
 @Composable
 private fun ColorPicker(
-    selectedColor: Color,
-    colorName: String?,
+    stateHolder: ColorPickerStateHolder,
     onUpdateColorSettings: (Float) -> Unit,
     onSaveColor: () -> Unit,
-    colors: List<ColorModel>,
 ) {
     Column(
         modifier = Modifier
@@ -59,12 +55,11 @@ private fun ColorPicker(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Header(colorName.orEmpty())
+        Header(stateHolder)
 
         PickerContent(
-            selectedColor = selectedColor,
+            stateHolder = stateHolder,
             onHueChange = onUpdateColorSettings,
-            colors = colors,
         )
 
         SaveButton(
@@ -77,7 +72,9 @@ private fun ColorPicker(
 }
 
 @Composable
-private fun Header(name: String) {
+private fun Header(stateHolder: ColorPickerStateHolder) {
+    val name by stateHolder.collectCurrentColorNameAsState()
+
     Text(
         modifier = Modifier
             .fillMaxWidth()
@@ -104,10 +101,10 @@ private fun ColorPickerPreview() {
         guessHue = null,
     )
     val selected = Color.hsv(model.realHue, model.saturation, model.value)
-    ColorPicker(selectedColor = selected,
-        colorName = model.name,
-        onUpdateColorSettings = { _ -> },
-        onSaveColor = {},
-        colors = List(5) { model },
-    )
+//    ColorPicker(selectedColor = selected,
+//        colorName = model.name,
+//        onUpdateColorSettings = { _ -> },
+//        onSaveColor = {},
+//        colors = List(5) { model },
+//    )
 }

@@ -35,7 +35,10 @@ class ColorListAdapter(
         originalList = currentList
     }
 
-    fun resetToOriginalOrder() = submitList(originalList)
+    fun resetToOriginalOrder(){
+//        val newList = originalList.asSequence().map { it.updateHue(null) }.toList()
+        submitList(originalList)
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setHelpMode(isHelpMode: Boolean) {
