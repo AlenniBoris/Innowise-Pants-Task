@@ -22,6 +22,8 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.pants.presentation.SharedGameViewModel
 import com.example.pants.presentation.colorpicker.model.ColorPickerStateHolder
 import com.example.pants.uikit.compose.animatedGradientTransition
 
@@ -62,8 +64,7 @@ private fun ColorBox(animatedGradient: Brush) {
 @Preview
 @Composable
 fun ColorPreviewPreview(){
-//    ColorPreview(
-//        animatedColor = Color.Yellow,
-//        animatedGradient = Brush.linearGradient(0f to Color.Yellow,  0.5f to Color.Green,  1f to Color.Blue),
-//    )
+    ColorPreview(
+        stateHolder = ColorPickerStateHolder(viewModel = viewModel<SharedGameViewModel>()),
+    )
 }

@@ -14,7 +14,9 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pants.domain.model.ColorModel
+import com.example.pants.presentation.SharedGameViewModel
 import com.example.pants.presentation.colorpicker.model.ColorPickerStateHolder
 
 @Composable
@@ -45,11 +47,8 @@ fun PreviewsPreview() {
         guessHue = null,
     )
 
-//    Previews(
-//        modifier = Modifier,
-//        selectedColor = Color.Blue,
-//        colors = List(5) { model },
-//        animatedColor = Color.Yellow,
-//        animatedGradient = Brush.linearGradient(0f to Color.Yellow,  0.5f to Color.Green,  1f to Color.Blue),
-//    )
+    Previews(
+        modifier = Modifier,
+        stateHolder = ColorPickerStateHolder(viewModel = viewModel<SharedGameViewModel>()),
+    )
 }

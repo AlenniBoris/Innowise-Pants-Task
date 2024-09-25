@@ -36,7 +36,6 @@ class ColorListAdapter(
     }
 
     fun resetToOriginalOrder(){
-//        val newList = originalList.asSequence().map { it.updateHue(null) }.toList()
         submitList(originalList)
     }
 

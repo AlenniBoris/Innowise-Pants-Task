@@ -40,52 +40,29 @@ class SharedGameViewModel(
 
     fun setColorModelByName(name: String) {
         _currentColorName.value = name
-//        _colorBoard.value.find { it.name == name }.let {
         _colorBoard.value.find { it.name == name }?.let { colorModel ->
             updateColorSettings(colorModel.guessHue ?: 0f)
-//            updateColorSettings(0f)
         }
     }
 
     fun saveColor() {
-//        viewModelScope.launch {
-//            if (_colorBoard.value.isEmpty()) return@launch
-        //Added
-//        _selectedColor.value = Color.hsv(newHue, 1f, 1f)
-
         val newHue = _selectedColor.value.hue
             val updatedColors = _colorBoard.value.map {
                 if (it.name == currentColorName.value) it.updateHue(newHue) else it
             }
             _colorBoard.value = updatedColors
-
-//        }
     }
 
     fun updateColorSettings(hue: Float) {
         _selectedColor.value = Color.hsv(hue, 1f, 1f)
-        Log.e("debug", "bonjour")
-//        _colorBoard.value = _colorBoard.value.map { color ->
-//            if(Color.hsv(color.guessHue ?: 0f, color.saturation, color.value) != _selectedColor.value) {
-//                color.updateHue(color.guessHue)
-//            } else {
-//                color.updateHue(hue)
-//            }
-//        }
     }
 
     fun checkColorOrder(board: List<ColorModel>): List<ColorModel>? {
         when {
-//            board.isEmpty() -> {
-//                initColorBoard()
-//                return board
-//            }
-
             checkBoardOrderUseCase(board) -> {
                 initColorBoard()
                 return null
             }
-
             else -> {
                 return board.sortedBy { it.realHue }
             }

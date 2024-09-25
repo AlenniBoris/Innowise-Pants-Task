@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pants.domain.model.ColorModel
 import com.example.pants.R
 import com.example.pants.presentation.SharedGameViewModel
@@ -101,10 +102,9 @@ private fun ColorPickerPreview() {
         guessHue = null,
     )
     val selected = Color.hsv(model.realHue, model.saturation, model.value)
-//    ColorPicker(selectedColor = selected,
-//        colorName = model.name,
-//        onUpdateColorSettings = { _ -> },
-//        onSaveColor = {},
-//        colors = List(5) { model },
-//    )
+    ColorPicker(
+        stateHolder = ColorPickerStateHolder(viewModel = viewModel<SharedGameViewModel>()),
+        onUpdateColorSettings = { _ -> },
+        onSaveColor = {},
+    )
 }

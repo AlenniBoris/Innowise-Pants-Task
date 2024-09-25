@@ -68,7 +68,10 @@ dependencies {
     implementation(libs.kotlinx.coroutine)
     implementation(libs.kotlinx.collection)
     implementation(libs.koin.android)
+    implementation(libs.androidx.junit.ktx)
     testImplementation(libs.junit)
+    androidTestImplementation(libs.junit)
 
     debugImplementation(libs.ui.tooling.preview)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 }
