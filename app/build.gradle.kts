@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.androidx.junit.ktx)
     testImplementation(libs.junit)
+    testImplementation(libs.junit.jupiter)
     androidTestImplementation(libs.junit)
 
     debugImplementation(libs.ui.tooling.preview)
