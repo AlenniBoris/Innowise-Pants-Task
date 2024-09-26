@@ -1,6 +1,7 @@
 package com.example.pants
 
 import android.app.Application
+import com.example.pants.di.coroutineDispatchersModule
 import com.example.pants.di.dataModule
 import com.example.pants.di.viewModelsModule
 import org.koin.android.ext.koin.androidContext
@@ -14,7 +15,7 @@ class PantsApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@PantsApplication)
-            modules(viewModelsModule, dataModule)
+            modules(viewModelsModule, dataModule, coroutineDispatchersModule)
         }
     }
 }
