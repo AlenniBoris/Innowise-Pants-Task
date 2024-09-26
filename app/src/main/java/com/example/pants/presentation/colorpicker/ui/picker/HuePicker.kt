@@ -81,13 +81,17 @@ fun HuePicker(
 
                     val x = if (calc <= 5) {
                         0.dp
-                    } else if (calc >= 355){
+                    } else if (calc >= 355) {
                         360.dp
                     } else {
-                        (calc-widthState.intValue/5).dp
+                        (calc - widthState.intValue / 5).dp
                     }
 
-                    IntOffset(x = x.toPx().toInt(), y = 0)
+                    IntOffset(
+                        x = x
+                            .toPx()
+                            .toInt(), y = 0
+                    )
                 }
         )
     }
