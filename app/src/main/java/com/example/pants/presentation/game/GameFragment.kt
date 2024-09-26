@@ -75,6 +75,7 @@ class GameFragment : Fragment() {
                 colors == null -> {
                     showToast(getString(R.string.success))
                 }
+
                 colors.isNotEmpty() -> {
                     adapter.apply {
                         setOriginalList()

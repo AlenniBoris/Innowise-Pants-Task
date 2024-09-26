@@ -1,6 +1,5 @@
 package com.example.pants.presentation
 
-import android.util.Log
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -47,10 +46,10 @@ class SharedGameViewModel(
 
     fun saveColor() {
         val newHue = _selectedColor.value.hue
-            val updatedColors = _colorBoard.value.map {
-                if (it.name == currentColorName.value) it.updateHue(newHue) else it
-            }
-            _colorBoard.value = updatedColors
+        val updatedColors = _colorBoard.value.map {
+            if (it.name == currentColorName.value) it.updateHue(newHue) else it
+        }
+        _colorBoard.value = updatedColors
     }
 
     fun updateColorSettings(hue: Float) {
@@ -63,6 +62,7 @@ class SharedGameViewModel(
                 initColorBoard()
                 return null
             }
+
             else -> {
                 return board.sortedBy { it.realHue }
             }

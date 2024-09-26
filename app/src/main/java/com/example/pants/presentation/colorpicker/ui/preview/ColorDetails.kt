@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -30,7 +29,10 @@ internal fun ColorDetails(modifier: Modifier, color: Color) {
     ) {
         DataPointPresenter("HUE", stringResource(R.string.hue_data, color.hue))
         Spacer(modifier = Modifier.height(10.dp))
-        DataPointPresenter("RGB", String.format(stringResource(R.string.rgb_data), color.red, color.green, color.blue))
+        DataPointPresenter(
+            "RGB",
+            String.format(stringResource(R.string.rgb_data), color.red, color.green, color.blue)
+        )
     }
 }
 
