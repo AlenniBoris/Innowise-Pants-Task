@@ -1,13 +1,16 @@
 [versions]
 agp = "8.6.1"
+junit-version = "4.13.2"
 kotlin = "2.0.0"
 core-ktx = "1.13.1"
+kotlinx-coroutines-test = "1.5.2"
 lifecycle = "2.8.4"
 activity-compose = "1.9.1"
 compose-bom = "2024.08.00"
 fragment-ktx = "1.8.2"
 appcompat = "1.7.0"
 lifecycle-viewmodel-compose = "2.8.6"
+mockk = "1.12.0"
 retrofit-version = "2.9.0"
 koin-version = "3.3.2"
 kotlinx-coroutine = "1.7.3"
@@ -24,9 +27,12 @@ junit-jupiter = "5.8.1"
 [libraries]
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle-viewmodel-compose" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+junit-v4132 = { module = "junit:junit", version.ref = "junit-version" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling" }

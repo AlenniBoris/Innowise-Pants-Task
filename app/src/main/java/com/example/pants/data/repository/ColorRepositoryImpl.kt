@@ -1,39 +1,50 @@
 package com.example.pants.data.repository
 
-import android.util.Log
 import com.example.pants.data.source.remote.ColorApiService
 import com.example.pants.data.mapper.toColorModel
 import com.example.pants.domain.model.ColorModel
 import com.example.pants.domain.repository.ColorRepository
 import com.example.pants.data.source.local.generateRandomColor
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 import java.util.Locale
 
 class ColorRepositoryImpl(
     private val apiService: ColorApiService,
+    private val ioDispatcher: CoroutineDispatcher,
+    private val defaultDispatcher: CoroutineDispatcher
 ) : ColorRepository {
 
     override suspend fun getSetOfUniqueColorsFromApiService(count: Int): Result<Set<ColorModel>> = runCatching {
-        val colorList = mutableSetOf<ColorModel>()
-        while(colorList.size < count) {
-            val randomHSVColorValue = generateRandomColor()
-            val randomColorValues = randomHSVColorValue.split(",")
-            val randomColorSaturation = randomColorValues[1].toDouble()
-            val randomColorBrightness = randomColorValues[2].toDouble()
+        withContext(defaultDispatcher) {
+            val colorList = mutableSetOf<ColorModel>()
+            while(colorList.size < count) {
+                val randomHSVColorValue = generateRandomColor()
+                val randomColorValues = randomHSVColorValue.split(",")
+                val randomColorSaturation = randomColorValues[1].toDouble()
+                val randomColorBrightness = randomColorValues[2].toDouble()
 
-            val checkIfColorIsAcceptableByBrightnessAndSaturation =
-                (randomColorSaturation > 0.3) && (randomColorBrightness > 0.4)
-            if (!checkIfColorIsAcceptableByBrightnessAndSaturation) continue
+                val checkIfColorIsAcceptableByBrightnessAndSaturation =
+                    (randomColorSaturation > 0.3) && (randomColorBrightness > 0.4)
+                if (!checkIfColorIsAcceptableByBrightnessAndSaturation) continue
 
-            val colorFromApiByRandomHSV = apiService.getColor(randomHSVColorValue).toColorModel()
+                val response = withContext(ioDispatcher) {
+                    apiService.getColor(randomHSVColorValue)
+                }
 
-            val colorIsInCommonColors =
-                COMMON_USE_NAMES.contains(colorFromApiByRandomHSV.name.lowercase(Locale.getDefault()))
+                val colorFromApiByRandomHSV = response.toColorModel()
 
-            if (colorIsInCommonColors) continue
+                val colorIsInCommonColors =
+                    COMMON_USE_NAMES.contains(colorFromApiByRandomHSV.name.lowercase(Locale.getDefault()))
 
-            colorList.add(colorFromApiByRandomHSV)
+                if (colorIsInCommonColors) continue
+
+                colorList.add(colorFromApiByRandomHSV)
+            }
+            colorList
         }
-        colorList
+
+
     }
 
     private companion object {

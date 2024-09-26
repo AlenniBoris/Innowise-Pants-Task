@@ -75,4 +75,9 @@ dependencies {
 
     debugImplementation(libs.ui.tooling.preview)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    testImplementation(kotlin("test"))
+    testImplementation(libs.junit.v4132)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
 }
